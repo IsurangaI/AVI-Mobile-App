@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:dio/dio.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +19,26 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _image = image;
     });
+  }
+
+  void _uploadFile(filePath) async {
+    // Get base file name
+    String fileName = basename(filePath.path);
+    print("File base name: $fileName");
+
+    try {
+      FormData formData =
+          new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
+
+      Response response =
+          await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
+      print("File upload response: $response");
+
+      // Show the incoming message in snakbar
+      _//showSnakBarMsg(response.data['message']);
+    } catch (e) {
+      print("Exception Caught: $e");
+    }
   }
 
   @override
