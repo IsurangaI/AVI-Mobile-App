@@ -1,0 +1,64 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:dio/dio.dart';
+
+
+class UplaodImage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<UplaodImage> {
+  File _image;
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _uploadFile(filePath) async {
+    // Get base file name
+    String fileName = basename(filePath.path);
+    print("File base name: $fileName");
+
+    try {
+      FormData formData =
+      new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
+
+      Response response =
+      await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
+      print("File upload response: $response");
+
+      // Show the incoming message in snakbar
+      //showSnakBarMsg(response.data['message']);
+    } catch (e) {
+      print("Exception Caught: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Image Picker',
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Image Picker'),
+        ),
+        body: new Center(
+          child: _image == null
+              ? new Text('No image selected')
+              : new Image.file(_image),
+        ),
+        floatingActionButton: new FloatingActionButton(
+          onPressed: getImage,
+          tooltip: 'Pick Image',
+          child: new Icon(Icons.camera),
+        ),
+      ),
+    );
+  }
+}
