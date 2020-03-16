@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
 
-
-class UplaodImage extends StatefulWidget {
+class UploadImage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _MyAppState();
 }
 
-class _MyAppState extends State<UplaodImage> {
+class _MyAppState extends State<UploadImage> {
   File _image;
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -27,10 +26,10 @@ class _MyAppState extends State<UplaodImage> {
 
     try {
       FormData formData =
-      new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
+          new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
 
       Response response =
-      await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
+          await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
       print("File upload response: $response");
 
       // Show the incoming message in snakbar
@@ -48,10 +47,36 @@ class _MyAppState extends State<UplaodImage> {
         appBar: new AppBar(
           title: new Text('Image Picker'),
         ),
-        body: new Center(
-          child: _image == null
-              ? new Text('No image selected')
-              : new Image.file(_image),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: const <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.message),
+                title: Text('Messages'),
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text('Profile'),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+              ),
+            ],
+          ),
         ),
         floatingActionButton: new FloatingActionButton(
           onPressed: getImage,
