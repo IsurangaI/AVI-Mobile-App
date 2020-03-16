@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import './HomePage.dart';
+import './UploadImage.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<Loading> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context)=>HomePage()
+            builder: (context)=>UploadImage()
         )
     );
   }
