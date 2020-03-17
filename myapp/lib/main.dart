@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import './pages/landing.dart';
+import './Pages/Loading.dart';
+import './Pages/UploadImage.dart';
+import 'Pages/HomePage.dart';
+import './Pages/History.dart';
 
-void main() {
+void main(){
   runApp(new MaterialApp(
-    home: new LandingPage(),
+    home: new History(),
   ));
 }
