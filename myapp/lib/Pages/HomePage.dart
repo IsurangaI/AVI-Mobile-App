@@ -43,6 +43,8 @@ class _HomePageState extends State<HomePage> {
           trailing: new Icon(Icons.more),
         )
       ])),
+
+      
       body: new Center(
         child: new Text("Welcome to the Home Page",
             style: new TextStyle(fontSize: 24)),
@@ -50,4 +52,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
 }

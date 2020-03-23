@@ -24,7 +24,7 @@ class Camera extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Home Page'),
     );
   }
 }
@@ -60,8 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _image = image;
     });
   }
-
-
 
   // Methode for file upload
   void _uploadFile(filePath) async {
@@ -99,22 +97,91 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: Colors.amber,
       key: _scaffoldstate,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(widget.title), backgroundColor: Color(0xff000000),
       ),
-      body: Center(
+
+      drawer: new Drawer(
+          child: new ListView(children: <Widget>[
+        new UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: const Color(0xFF000000),
+            ),
+            accountName: new Text('Ajith Rohana'),
+            accountEmail: new Text('ajithrohana@gmail.com')),
+        new ListTile(
+          title: new Text("Home"),
+          trailing: new Icon(Icons.arrow_forward_ios),
+        ),
+        new ListTile(
+          title: new Text("Search History"),
+          trailing: new Icon(Icons.arrow_forward_ios),
+        ),
+        new ListTile(
+          title: new Text("Instructions"),
+          trailing: new Icon(Icons.arrow_forward_ios),
+        ),
+        new ListTile(
+          title: new Text("Settings"),
+          trailing: new Icon(Icons.settings),
+        ),
+        new Divider(),
+        new ListTile(
+          title: new Text('Share'),
+          trailing: new Icon(Icons.share),
+        ),
+        new ListTile(
+          title: new Text('More about developers'),
+          trailing: new Icon(Icons.more),
+        )
+      ])),
+
+      body: new Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: _image == null ? Text('No image selected.') : Image.file(_image),
+
+        //  child: _image == null ? Text('Choose.') : Image.file(_image),
+
+        child: new Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceArou,
+            children: <Widget>[
+              SizedBox(height: 220.0),
+              new RaisedButton(
+                color: Colors.black,
+                child: Text(
+                  'Check Plate',
+                  style: TextStyle(
+                      fontSize:35 ,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
+                ),
+                onPressed: getImage,
+              ),
+              SizedBox(height: 20.0),
+              new RaisedButton(
+                color: Colors.black,
+                child: Text(
+                  'Blacklist Plate',
+                  style: TextStyle(
+                    fontSize:35 ,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
+                ),
+                onPressed: getImage,
+              )
+            ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getImage,
-        tooltip: 'Increment',
-        child: Icon(Icons.camera),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+// This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: getImage,
+      //   child: Icon(Icons.camera),
+      // ),
     );
   }
 }
