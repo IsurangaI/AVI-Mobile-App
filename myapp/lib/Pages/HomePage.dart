@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
       body: new Center(
         child: new Text("Welcome to the Home Page",
             style: new TextStyle(fontSize: 24)),
+            
       ),
     );
   }

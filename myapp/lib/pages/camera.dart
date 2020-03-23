@@ -48,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   File _image;
   final GlobalKey<ScaffoldState> _scaffoldstate =
       new GlobalKey<ScaffoldState>();
@@ -62,16 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+
 
   // Methode for file upload
   void _uploadFile(filePath) async {
@@ -123,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.camera),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
