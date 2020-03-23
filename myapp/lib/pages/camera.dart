@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myapp/pages/History.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
+import './History.dart';
 
 void main() => runApp(Camera());
 
@@ -119,6 +121,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         new ListTile(
           title: new Text("Search History"),
+          onTap:  () {
+            //Use`Navigator` widget to push the second screen to out stack of screens
+            Navigator.of(context)
+                .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+              return new History();
+            }));
+          },
           trailing: new Icon(Icons.arrow_forward_ios),
         ),
         new ListTile(
@@ -178,10 +187,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ]),
       ),
 // This trailing comma makes auto-formatting nicer for build methods.
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: getImage,
-      //   child: Icon(Icons.camera),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: getImage,
+        child: Icon(Icons.camera),
+      ),
     );
   }
 }

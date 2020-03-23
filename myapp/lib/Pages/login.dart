@@ -45,7 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(
                             fontSize: 35.0, fontWeight: FontWeight.bold)),
                   ),
-                  
                 ],
               ),
             ),
@@ -89,7 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.black,
                         elevation: 7.0,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            //Use`Navigator` widget to push the second screen to out stack of screens
+                            Navigator.of(context).push(MaterialPageRoute<Null>(
+                                builder: (BuildContext context) {
+                              return new Camera();
+                            }));
+                          },
                           child: Center(
                             child: Text(
                               'LOGIN',
