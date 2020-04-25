@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import './home.dart';
+import 'dart:async';
 
 void main() => runApp(new Login());
 
@@ -9,7 +11,7 @@ class Login extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new Camera()
+        '/home': (BuildContext context) => new Camera()
       },
       home: new MyHomePage(),
     );
@@ -22,6 +24,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController user = new TextEditingController();
+  TextEditingController pass = new TextEditingController();
+
+  String msg = '';
+
+  Future<List> _login() async {
+    final response =
+        await http.post("http://192.168.8.101/avlogin/login.php", body: {
+      "username": user.text,
+      "password": pass.text,
+    });
+    print(response.body);
+
+    // var datauser = json.decode(response.body);
+
+    // if (datauser.length == 0) {
+    //   setState(() {
+    //     msg = "Login Fail";
+    //   });
+    // } else {
+    //   Navigator.pushReplacementNamed(context, '/AdminPage');
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -53,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     TextField(
+                      controller: user,
                       decoration: InputDecoration(
                           labelText: 'USERNAME',
                           labelStyle: TextStyle(
@@ -64,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     SizedBox(height: 20.0),
                     TextField(
+                      controller: pass,
                       decoration: InputDecoration(
                           labelText: 'PASSWORD',
                           labelStyle: TextStyle(
@@ -89,11 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         elevation: 7.0,
                         child: GestureDetector(
                           onTap: () {
-                            //Use`Navigator` widget to push the second screen to out stack of screens
-                            Navigator.of(context).push(MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                              return new Camera();
-                            }));
+                            _login();
                           },
                           child: Center(
                             child: Text(
@@ -108,22 +132,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    // Container(
-                    //   height: 40.0,
-                    //   color: Colors.transparent,
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         border: Border.all(
-                    //             color: Colors.black,
-                    //             style: BorderStyle.solid,
-                    //             width: 1.0),
-                    //         color: Colors.transparent,
-                    //         borderRadius: BorderRadius.circular(20.0)),
-                    //   ),
-                    // )
                   ],
                 )),
             SizedBox(height: 15.0),
+            
+              Text(msg,style: TextStyle(fontSize: 20.0,color: Colors.red),)
           ],
         ));
   }
