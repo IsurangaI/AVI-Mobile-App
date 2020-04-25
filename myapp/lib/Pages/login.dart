@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './camera.dart';
+import './home.dart';
 
 void main() => runApp(new Login());
 
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     TextField(
                       decoration: InputDecoration(
-                          labelText: 'EMAIL',
+                          labelText: 'USERNAME',
                           labelStyle: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
