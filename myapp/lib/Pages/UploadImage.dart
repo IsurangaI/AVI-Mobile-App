@@ -25,9 +25,10 @@ class _MyAppState extends State<UploadImage> {
     print("File base name: $fileName");
 
     try {
-      FormData formData =
-          new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
-
+      FormData formData = FormData.fromMap({
+  "file":
+      await MultipartFile.fromFile(filePath, filename:fileName),
+ });
       Response response =
           await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
       print("File upload response: $response");

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import './History.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
+import './History.dart';
 
 void main() => runApp(Camera());
 
@@ -69,9 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
     print("File base name: $fileName");
 
     try {
-      FormData formData =
-          new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
-
+      FormData formData = FormData.fromMap({
+  "file":
+      await MultipartFile.fromFile(filePath, filename:fileName),
+ });
       Response response =
           await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
       print("File upload response: $response");
