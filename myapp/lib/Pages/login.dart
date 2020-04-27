@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './home.dart';
@@ -30,22 +32,27 @@ class _MyHomePageState extends State<MyHomePage> {
   String msg = '';
 
   Future<List> _login() async {
+    print(user.text);
+    print(pass.text);
     final response =
-        await http.post("http://192.168.8.101/avlogin/login.php", body: {
+        await http.post("http://192.168.8.100/10.0.2.2/avlogin/login.php", body: {
       "username": user.text,
       "password": pass.text,
     });
+    
     print(response.body);
 
-    // var datauser = json.decode(response.body);
+    var datauser = json.decode(response.body);
+  
+  
 
-    // if (datauser.length == 0) {
-    //   setState(() {
-    //     msg = "Login Fail";
-    //   });
-    // } else {
-    //   Navigator.pushReplacementNamed(context, '/AdminPage');
-    // }
+    if (datauser.length == 0) {
+      setState(() {
+        msg = "Login Fail";
+      });
+    } else {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 
   @override
@@ -108,35 +115,46 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: EdgeInsets.only(top: 15.0, left: 20.0),
                     ),
                     SizedBox(height: 40.0),
-                    Container(
-                      height: 40.0,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        shadowColor: Colors.black,
-                        color: Colors.black,
-                        elevation: 7.0,
-                        child: GestureDetector(
-                          onTap: () {
-                            _login();
-                          },
-                          child: Center(
-                            child: Text(
-                              'LOGIN',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    
+                    
+                    // Container(
+                    //   height: 40.0,
+                    //   child: Material(
+                    //     borderRadius: BorderRadius.circular(20.0),
+                    //     shadowColor: Colors.black,
+                    //     color: Colors.black,
+                    //     elevation: 7.0,
+                    //     child: GestureDetector(
+                    //       onTap: () {
+                    //         _login();
+                    //       },
+                    //       child: Center(
+                    //         child: Text(
+                    //           'LOGIN',
+                    //           style: TextStyle(
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.bold,
+                    //               fontFamily: 'Montserrat'),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: 20.0),
                   ],
                 )),
             SizedBox(height: 15.0),
-            
-              Text(msg,style: TextStyle(fontSize: 20.0,color: Colors.red),)
+
+            RaisedButton(
+              child: Text("Login"),
+              onPressed: () {
+                _login();
+              },
+            ),
+            Text(
+              msg,
+              style: TextStyle(fontSize: 20.0, color: Colors.red),
+            )
           ],
         ));
   }

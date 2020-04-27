@@ -29,7 +29,7 @@ class _MyAppState extends State<UploadImage> {
           new FormData.from({"file": new UploadFileInfo(filePath, fileName)});
 
       Response response =
-          await Dio().post("http://192.168.0.101/saveFile.php", data: formData);
+          await Dio().post("http://192.168.8.100/saveFile.php", data: formData);
       print("File upload response: $response");
 
       // Show the incoming message in snakbar

@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // Methode for file upload
+  // Method for file upload
   void _uploadFile(filePath) async {
     // Get base file name
     String fileName = basename(filePath.path);
@@ -80,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // Show the incoming message in snakbar
       _showSnakBarMsg(response.data['message']);
     } catch (e) {
+      
       print("Exception Caught: $e");
     }
   }
