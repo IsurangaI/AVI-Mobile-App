@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myapp/pages/History.dart';
+import './History.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
-import './History.dart';
 
 void main() => runApp(Camera());
 
